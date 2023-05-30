@@ -3,7 +3,7 @@
 
 https://github.com/sxfour/SFMLStarWars/assets/112577182/f133515e-f6a0-4663-ac8d-b0b2fbe4cab7
 
-* Все текстуры в Images, оба врага используют Follow Player из разницы координат игрока и врага.
+* Враги используют Follow Player из разницы координат игрока и врага.
 * Верхняя панель сердечек использует переменную для счёта и переключает на другую (в случае поражение игрока).
 ![panel1](https://github.com/sxfour/SFMLStarWars/assets/112577182/404bf21c-5bea-44b6-a5fd-537a00f5b60e)
 
