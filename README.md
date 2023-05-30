@@ -5,8 +5,9 @@ https://github.com/sxfour/SFMLStarWars/assets/112577182/cd81db62-2647-470d-82f3-
 
 * Все текстуры в Images, оба врага используют Follow Player из разницы координат игрока и врага.
 * Верхняя панель сердечек использует переменную для счёта и переключает на другую (в случае поражение игрока).
-* Background parallax
 ![panel1](https://github.com/sxfour/SFMLStarWars/assets/112577182/404bf21c-5bea-44b6-a5fd-537a00f5b60e)
+
+* Background parallax
 
 # Эффект движения заднего фона (background parallax)
 * Для достижение данного эффекта, я решил использовать базовый шейдер через загрузку в память SFML
