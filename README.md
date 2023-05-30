@@ -37,4 +37,7 @@ https://github.com/sxfour/SFMLStarWars/assets/112577182/f133515e-f6a0-4663-ac8d-
 
 ![изображение](https://github.com/sxfour/SFMLStarWars/assets/112577182/610f296e-dad8-4863-9342-dde80d26d356)
 
+# Управление и пауза
+https://github.com/sxfour/SFMLStarWars/assets/112577182/ec788ca5-acba-4978-9b93-225685cc4955
+
 # P.S Это мой первый ООП на C++ поэтому он может быть ошибочным...
