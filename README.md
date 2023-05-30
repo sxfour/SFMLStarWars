@@ -8,8 +8,8 @@ https://github.com/sxfour/SFMLStarWars/assets/112577182/cd81db62-2647-470d-82f3-
 ![panel1](https://github.com/sxfour/SFMLStarWars/assets/112577182/404bf21c-5bea-44b6-a5fd-537a00f5b60e)
 
 * Background parallax.
-* Простая анимация персонажей.
-![player](https://github.com/sxfour/SFMLStarWars/assets/112577182/0bbefc55-33a5-4c86-8645-de2f2ca9bd71)
+* Простая анимация персонажей.![player](https://github.com/sxfour/SFMLStarWars/assets/112577182/21ddf6c0-d9fd-4735-9414-482a58abcec2)
+
 
 # Эффект движения заднего фона (background parallax)
 * Для достижение данного эффекта, я решил использовать базовый шейдер через загрузку в память SFML
