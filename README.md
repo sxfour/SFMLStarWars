@@ -1,7 +1,7 @@
 # ![icon](https://github.com/sxfour/SFMLStarWars/assets/112577182/687545bf-3155-4d0d-9a89-7bf236690239) SFMLStarWars
 # Первая из моих игр с использованием библиотеки SFML и ООП на C++ #1
 
-https://github.com/sxfour/SFMLStarWars/assets/112577182/cd81db62-2647-470d-82f3-59ebfd04d228
+https://github.com/sxfour/SFMLStarWars/assets/112577182/6ffb941a-f632-4864-96aa-9d58d1c2f0ad
 
 * Все текстуры в Images, оба врага используют Follow Player из разницы координат игрока и врага.
 * Верхняя панель сердечек использует переменную для счёта и переключает на другую (в случае поражение игрока).
