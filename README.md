@@ -17,11 +17,11 @@ https://github.com/sxfour/SFMLStarWars/assets/112577182/cd81db62-2647-470d-82f3-
 * Создано через простое условие в основном цикле программы.
 * Смена происходит каждую секунду - через специальную переменную подсчёта псевдоигрового времени.
 
-![изображение](https://github.com/sxfour/SFMLStarWars/assets/112577182/62026f44-3d5c-4253-88f9-8eb83d374aa6)
+![изображение](https://github.com/sxfour/SFMLStarWars/assets/112577182/87a683fb-497d-410f-b073-ccc9c59177b3)
 
 * frameTimer конвертируем offset заднего фона * 15 и % 2 получаем на выходе 0 или 1 каждую секунду (чётность)
 
-![изображение](https://github.com/sxfour/SFMLStarWars/assets/112577182/87a683fb-497d-410f-b073-ccc9c59177b3)
+![изображение](https://github.com/sxfour/SFMLStarWars/assets/112577182/62026f44-3d5c-4253-88f9-8eb83d374aa6)
 
 # Изменение скорости врагов, зайти -> Moves.cpp
 ![изображение](https://github.com/sxfour/SFMLStarWars/assets/112577182/26a53b3a-f6ab-487d-acc9-d6c1bd246b50)
