@@ -1,38 +1,36 @@
-#include "Moves.h"
+#include "Move.h"
 
 int main() {
-	setlocale(LC_ALL, "Russian");
-
-	// Параметры запуска окна
+	// РџР°СЂР°РјРµС‚СЂС‹ Р·Р°РїСѓСЃРєР° РѕРєРЅР°
 	RenderWindow window(VideoMode(900, 600), "SFMLStarWars", Style::Titlebar | Style::Close);
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(120);
 
-	// Иконка приложения
+	// РРєРѕРЅРєР° РїСЂРёР»РѕР¶РµРЅРёВ¤
 	Image icon;
-	if (!icon.loadFromFile("Images/icon.png")) {
+	if (!icon.loadFromFile("resources/icon.png")) {
 		return EXIT_FAILURE;
 	}
 	window.setIcon(32, 32, icon.getPixelsPtr());
 
 
-	// Игровая панель
+	// РРіСЂРѕРІР°В¤ РїР°РЅРµР»СЊ
 	Texture TextureInfoPanel;
-	TextureInfoPanel.loadFromFile("Images/panel1.png");
+	TextureInfoPanel.loadFromFile("resources/panel1.png");
 
 	Texture TextureInfoPanel2;
-	TextureInfoPanel2.loadFromFile("Images/panel2.png");
+	TextureInfoPanel2.loadFromFile("resources/panel2.png");
 
 	Texture TextureInfoPanel3;
-	TextureInfoPanel3.loadFromFile("Images/panel3.png");
+	TextureInfoPanel3.loadFromFile("resources/panel3.png");
 
 	RectangleShape GameInfoPanel(Vector2f(900, 50));
 	GameInfoPanel.setTexture(&TextureInfoPanel);
 	GameInfoPanel.setPosition(Vector2f(0, 10));
 
-	// Задний фон
+	// Р—Р°РґРЅРёР№ С„РѕРЅ
 	Texture textureBackground;
-	if (!textureBackground.loadFromFile("Images/background.png")) {
+	if (!textureBackground.loadFromFile("resources/background.png")) {
 		return EXIT_FAILURE;
 	}
 	textureBackground.setRepeated(true);
@@ -42,7 +40,7 @@ int main() {
 	spriteBackground.setColor(Color(255, 255, 255, 200));
 
 
-	// Шейдер к фону
+	// РЁРµР№РґРµСЂ Рє С„РѕРЅСѓ
 	Shader parallaxShader;
 	parallaxShader.loadFromMemory(
 		"uniform float offset;"
@@ -55,16 +53,16 @@ int main() {
 		"}"
 		, Shader::Vertex);
 
-	// Шрифт и текст
+	// РЁСЂРёС„С‚ Рё С‚РµРєСЃС‚
 	Font pixelFont;
-	if (!pixelFont.loadFromFile("Fonts/simplePixels.ttf")) {
+	if (!pixelFont.loadFromFile("resources/simplePixels.ttf")) {
 		return EXIT_FAILURE;
 	}
 
 	Text pauseText("PAUSE", pixelFont, 30);
 	pauseText.setPosition(10, 560);
 
-	Text infoText("DEBUG v0.1  Controls - W A S D, Pause - pause, Esc - exit", pixelFont, 18);
+	Text infoText("DEBUG v0.2  Controls - W A S D, Pause - pause, Esc - exit", pixelFont, 18);
 	infoText.setPosition(130, 570);
 
 	Text playerText("", pixelFont, 18);
@@ -76,43 +74,57 @@ int main() {
 	Text enemy2Text("", pixelFont, 18);
 	enemy2Text.setFillColor(Color::Yellow);
 
-	// Игрок
+	Text meteorText("", pixelFont, 18);
+	meteorText.setFillColor(Color::White);
+
+	// РРіСЂРѕРє
 	Texture playerTexture;
-	playerTexture.loadFromFile("Images/player1.png");
+	playerTexture.loadFromFile("resources/player1.png");
 
 	Sprite playerSprite;
 	playerSprite.setTexture(playerTexture);
 	playerSprite.setTextureRect(IntRect(0, 0, 95, 81));
 	playerSprite.setPosition(20, 300);
 
-	// Враг 1
+	// Р’СЂР°Рі 1
 	Texture enemy1Texture;
-	enemy1Texture.loadFromFile("Images/enemy1.png");
+	enemy1Texture.loadFromFile("resources/enemy1.png");
 
 	Sprite enemy1Sprite;
 	enemy1Sprite.setTexture(enemy1Texture);
 	enemy1Sprite.setTextureRect(IntRect(0, 0, 95, 81));
 	enemy1Sprite.setPosition(800, 100);
 
-	// Враг 2
+	// Р’СЂР°Рі 2
 	Texture enemy2Texture;
-	enemy2Texture.loadFromFile("Images/enemy2.png");
+	enemy2Texture.loadFromFile("resources/enemy2.png");
 
 	Sprite enemy2Sprite;
 	enemy2Sprite.setTexture(enemy2Texture);
 	enemy2Sprite.setTextureRect(IntRect(0, 0, 95, 81));
 	enemy2Sprite.setPosition(1000, 400);
 
-	// Переменные
-	Vector2f moveRec, moveEnemy1, moveEnemy2;
+	// РњРµС‚РµРѕСЂРёС‚
+	Texture meteorTexture;
+	meteorTexture.loadFromFile("resources/asteroid1.png");
+
+	Sprite meteorSprite;
+	meteorSprite.setTexture(meteorTexture);
+	meteorSprite.setTextureRect(IntRect(0, 0, 80, 80));
+	meteorSprite.setPosition(900, 80);
+
+	// РџРµСЂРµРјРµРЅРЅС‹Рµ
+	Vector2f moveRec, moveEnemy1, moveEnemy2, moveMeteor;
 	Clock clock;
 
 	float offset = 0.f;
 	int frameTimer = 0;
 	int lifes = 3;
 	bool gamePause = false;
+	bool gameOver = false;
 
-	// Основной цикл игры
+
+	// РћСЃРЅРѕРІРЅРѕР№ С†РёРєР» РёРіСЂС‹
 	while (window.isOpen()) {
 		Event event;
 		frameTimer = static_cast<int>(std::round(offset * 15)) % 2;
@@ -126,7 +138,7 @@ int main() {
 				if (event.key.code == Keyboard::Escape) { window.close(); }
 				if ((event.key.code == Keyboard::S)) { moveRec.y = 7.5; }
 				if ((event.key.code == Keyboard::W)) { moveRec.y = -7.5; }
-				if ((event.key.code == Keyboard::A)) {  moveRec.x = -7.5; }
+				if ((event.key.code == Keyboard::A)) { moveRec.x = -7.5; }
 				if ((event.key.code == Keyboard::D)) { moveRec.x = 7.5; }
 
 				break;
@@ -144,18 +156,18 @@ int main() {
 		}
 
 		if (!gamePause) {
-
-			// Счетчик жизни игрока
+			// РЎС‡РµС‚С‡РёРє Р¶РёР·РЅРё РёРіСЂРѕРєР°
 			if (lifes == 2) { GameInfoPanel.setTexture(&TextureInfoPanel2); }
 			else if (lifes == 1) { GameInfoPanel.setTexture(&TextureInfoPanel3); }
 			else if (lifes == 0) { lifes = 3; }
 
-			// Движение песонажей
+			// Р”РІРёР¶РµРЅРёРµ РїРµСЃРѕРЅР°Р¶РµР№
 			playerMove(playerSprite, moveRec, playerText);
 			enemy1Move(playerSprite, enemy1Sprite, moveEnemy1, lifes, enemy1Text);
 			enemy2Move(playerSprite, enemy2Sprite, moveEnemy2, lifes, enemy2Text);
+			meteorMove(meteorSprite, moveMeteor, meteorText);
 
-			// Анимация персонажей
+			// РђРЅРёРјР°С†РёВ¤ РїРµСЂСЃРѕРЅР°Р¶РµР№
 			if (frameTimer) {
 				playerSprite.setTextureRect(IntRect(95, 0, 95, 81));
 				enemy1Sprite.setTextureRect(IntRect(95, 0, 95, 81));
@@ -167,14 +179,17 @@ int main() {
 				enemy2Sprite.setTextureRect(IntRect(0, 0, 95, 81));
 			}
 
-			// Шейдер заднего фона
+			// РЁРµР№РґРµСЂ Р·Р°РґРЅРµРіРѕ С„РѕРЅР°
 			parallaxShader.setUniform("offset", offset += clock.restart().asSeconds() / 5);
 
-			// Отрисовка
+			// РћС‚СЂРёСЃРѕРІРєР°
 			window.clear();
 			window.draw(spriteBackground, &parallaxShader);
 			window.draw(GameInfoPanel);
 			window.draw(infoText);
+
+			window.draw(meteorSprite);
+			window.draw(meteorText);
 
 			window.draw(playerSprite);
 			window.draw(playerText);
@@ -188,12 +203,14 @@ int main() {
 			window.display();
 		}
 		else {
-			// Шейдер заднего фона
+			// РЁРµР№РґРµСЂ Р·Р°РґРЅРµРіРѕ С„РѕРЅР° РїСЂРё РїР°СѓР·Рµ
 			parallaxShader.setUniform("offset", offset += clock.restart().asSeconds() / 20);
 
+			// РћС‚СЂРёСЃРѕРІРєР° РїСЂРё РїР°СѓР·Рµ
 			window.clear();
 			window.draw(spriteBackground, &parallaxShader);
 			window.draw(GameInfoPanel);
+			window.draw(meteorSprite);
 			window.draw(playerSprite);
 			window.draw(enemy1Sprite);
 			window.draw(enemy2Sprite);
